@@ -9,3 +9,5 @@ Screenshot=preview.png
 MainScript=Main.qml
 ConfigFile=Themes/ancient_china_lantern.conf
 Id=zenmatrix-collection
+Theme-API=2.0
+QtVersion=6
