@@ -32,30 +32,49 @@
 
 Transform your static lock screen into a gateway to another dimension. ZenMatrix isn't just a theme; it's a completely modular, hardware-accelerated, and cinematic experience tailored for modern Linux rices.
 
-### 🚀 Next-Level Features
+<br/>
 
-- **🎬 37 Looping Video Backgrounds:** High-quality, seamlessly looping visuals spanning Anime, Cyberpunk, Nature, and Fantasy.
-- **🔀 Dynamic Playlists:** Backgrounds shift and cycle like a cinematic playlist, keeping your login screen fresh every time you boot! 
-- **⚡ Hardware Accelerated Playback:** Fluid animations powered by Qt Multimedia with a minimal CPU/GPU footprint.
-- **🛠️ Interactive TUI Installer:** One script to rule them all—resolves dependencies, handles theme selection, and provides instant live previews.
-- **🎨 Dynamic QML Architecture:** Fully responsive. Form components automatically snap and align (`left`, `center`, `right`) based on your configuration.
-- **👤 Intelligent Avatars:** Circular profile pictures featuring animated, glowing ambient borders with sleek fallback elements.
-- **🖥️ Omnipresent Session Support:** Smart dropdown menu detecting all Window Managers (Hyprland, Sway, Qtile) and DEs (KDE, GNOME).
+<div align="center">
+
+| 🚀 Next-Level Features | Description |
+| :--- | :--- |
+| **🎬 37 Looping Backgrounds**| High-quality, seamlessly looping visuals spanning Anime, Cyberpunk, Nature, and Fantasy. |
+| **🔀 Dynamic Playlists** | Backgrounds shift and cycle like a cinematic playlist, keeping your login screen fresh every boot! |
+| **⚡ Hardware Accelerated** | Fluid animations powered by Qt Multimedia with a minimal CPU/GPU footprint. |
+| **🛠️ TUI Installer** | One script to rule them all—resolves dependencies, handles theme selection, & live previews. |
+| **🎨 Dynamic QML** | Fully responsive. Components automatically snap (`left`, `center`, `right`) based on config. |
+| **👤 Intelligent Avatars** | Circular profile pictures featuring animated, glowing ambient borders with sleek fallbacks. |
+| **🖥️ Omnipresent Support** | Smart dropdown menu detecting all Window Managers (Hyprland, Sway) and DEs (KDE, GNOME). |
+
+</div>
 
 ---
 
 <h2 align="center">🎬 Cinematic Backgrounds Playlist</h2>
 
-Preview the 37 meticulously curated dimensions below. These backgrounds are rendered in stunning detail and seamlessly loop!
+<p align="center">Preview some of the meticulously curated dimensions below. To ensure video previews work properly on all devices, we are using direct RAW links.</p>
 
-<details open>
-<summary><b>🌟 Anime & Characters</b></summary>
+<div align="center">
 
-| 2B Midnight Bloom | Boy And Dragon | Evelyn |
-| :---: | :---: | :---: |
-| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/anime-boy-and-dragon.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/evelyn.mp4" autoplay loop muted width="100%"></video> |
+| Theme | Preview | Theme | Preview |
+| :---: | :---: | :---: | :---: |
+| **2B Midnight Bloom** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Lucy Digital Shadows** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
+| **Dawn Wanderer** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Motorcycle Girl Chaos** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
+| **Fantasy Flute Sunset Scene** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Yae Miko Pixel Art2** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
+
+</div>
+
+<br/>
+
+<div align="center">
+  <h3><a href="VIDEOS.md">✨ Click Here to View All 37 Cinematic Backgrounds ✨</a></h3>
+  <p><i>(To save space on this README, only a few are previewed above. Check out the complete gallery!)</i></p>
+</div>
+
+---: | :---: | :---: |
+| <video src="./Backgrounds/2b-midnight-bloom.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/anime-boy-and-dragon.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/evelyn.mp4" autoplay loop muted width="100%"></video> |
 | **Fantasy Flute** | **Vi And Powder** | **Yae Miko Pixel** |
-| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/vi-and-powder.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" autoplay loop muted width="100%"></video> |
+| <video src="./Backgrounds/fantasy-flute-sunset-scene.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/vi-and-powder.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/yae-miko-pixel-art2.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
@@ -64,7 +83,7 @@ Preview the 37 meticulously curated dimensions below. These backgrounds are rend
 
 | Digital Shadows | Nebula Black Hole | Motorcycle Girl Chaos | Shadowblade Wanderer |
 | :---: | :---: | :---: | :---: |
-| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/black-hole-in-nebula.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/shadowblade-wanderer.mp4" autoplay loop muted width="100%"></video> |
+| <video src="./Backgrounds/lucy-digital-shadows.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/black-hole-in-nebula.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/motorcycle-girl-chaos.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/shadowblade-wanderer.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
@@ -73,7 +92,7 @@ Preview the 37 meticulously curated dimensions below. These backgrounds are rend
 
 | Before The Road | Cloud Castle | Dawn Wanderer | Evening Drive |
 | :---: | :---: | :---: | :---: |
-| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/before-the-road.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/castle-beyond-the-clouds.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/evening-drive-and-windmills.mp4" autoplay loop muted width="100%"></video> |
+| <video src="./Backgrounds/before-the-road.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/castle-beyond-the-clouds.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/dawn-wanderer.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/evening-drive-and-windmills.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
