@@ -58,9 +58,9 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 
 | Theme | Preview | Theme | Preview |
 | :---: | :---: | :---: | :---: |
-| **2B Midnight Bloom** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Lucy Digital Shadows** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
-| **Dawn Wanderer** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Motorcycle Girl Chaos** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
-| **Fantasy Flute Sunset Scene** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" controls autoplay loop muted style="max-width:100%;"></video> | **Yae Miko Pixel Art2** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" controls autoplay loop muted style="max-width:100%;"></video> |
+| **2B Midnight Bloom** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" controls autoplay loop muted width="100%"></video> | **Lucy Digital Shadows** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" controls autoplay loop muted width="100%"></video> |
+| **Dawn Wanderer** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" controls autoplay loop muted width="100%"></video> | **Motorcycle Girl Chaos** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" controls autoplay loop muted width="100%"></video> |
+| **Fantasy Flute Sunset Scene** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" controls autoplay loop muted width="100%"></video> | **Yae Miko Pixel Art2** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" controls autoplay loop muted width="100%"></video> |
 
 </div>
 
