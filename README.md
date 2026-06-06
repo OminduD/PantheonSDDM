@@ -3,16 +3,16 @@
   
   <br/>
   
-  <a href="https://github.com/omindu/sddm-themes">
+  <a href="https://github.com/OminduD/sddm-themes">
     <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=25&pause=1000&color=00FFFF&center=true&vCenter=true&width=900&lines=Cinematic+SDDM+Login+Experience;Dynamic+Motion+and+Next-Gen+Aesthetics;37+Unique+Premium+Looping+Backgrounds;Drop-in+Ready+for+Your+Rice;Dynamic+Video+Playlists" alt="Typing SVG" />
   </a>
   <br/>
 
   <p>
-    <a href="https://github.com/omindu/sddm-themes/stargazers">
-      <img alt="Stars" src="https://img.shields.io/github/stars/omindu/sddm-themes?style=for-the-badge&color=00FF99&logo=github&logoColor=black"/>
+    <a href="https://github.com/OminduD/sddm-themes/stargazers">
+      <img alt="Stars" src="https://img.shields.io/github/stars/OminduD/sddm-themes?style=for-the-badge&color=00FF99&logo=github&logoColor=black"/>
     </a>
-    <img alt="Forks" src="https://img.shields.io/github/forks/omindu/sddm-themes?style=for-the-badge&color=00FFFF&logo=github&logoColor=black"/>
+    <img alt="Forks" src="https://img.shields.io/github/forks/OminduD/sddm-themes?style=for-the-badge&color=00FFFF&logo=github&logoColor=black"/>
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Linux-8be9fd?style=for-the-badge&logo=linux&logoColor=black"/>
     <a href="./LICENSE">
       <img alt="License" src="https://img.shields.io/badge/License-GPLv3-00FF99?style=for-the-badge"/>
@@ -28,7 +28,7 @@
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="35" align="center" /> Why ZenMatrix?
+<h2 align="center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="35" align="center" /> Why ZenMatrix?</h2>
 
 Transform your static lock screen into a gateway to another dimension. ZenMatrix isn't just a theme; it's a completely modular, hardware-accelerated, and cinematic experience tailored for modern Linux rices.
 
@@ -44,7 +44,7 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 
 ---
 
-## 🎬 Cinematic Backgrounds Playlist
+<h2 align="center">🎬 Cinematic Backgrounds Playlist</h2>
 
 Preview the 37 meticulously curated dimensions below. These backgrounds are rendered in stunning detail and seamlessly loop!
 
@@ -53,9 +53,9 @@ Preview the 37 meticulously curated dimensions below. These backgrounds are rend
 
 | 2B Midnight Bloom | Boy And Dragon | Evelyn |
 | :---: | :---: | :---: |
-| <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/anime-boy-and-dragon.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/evelyn.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/anime-boy-and-dragon.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/evelyn.mp4" autoplay loop muted width="100%"></video> |
 | **Fantasy Flute** | **Vi And Powder** | **Yae Miko Pixel** |
-| <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/vi-and-powder.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/vi-and-powder.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
@@ -64,7 +64,7 @@ Preview the 37 meticulously curated dimensions below. These backgrounds are rend
 
 | Digital Shadows | Nebula Black Hole | Motorcycle Girl Chaos | Shadowblade Wanderer |
 | :---: | :---: | :---: | :---: |
-| <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/black-hole-in-nebula.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/shadowblade-wanderer.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/black-hole-in-nebula.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/shadowblade-wanderer.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
@@ -73,21 +73,25 @@ Preview the 37 meticulously curated dimensions below. These backgrounds are rend
 
 | Before The Road | Cloud Castle | Dawn Wanderer | Evening Drive |
 | :---: | :---: | :---: | :---: |
-| <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/before-the-road.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/castle-beyond-the-clouds.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/omindu/sddm-themes/raw/main/Backgrounds/evening-drive-and-windmills.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/before-the-road.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/castle-beyond-the-clouds.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" autoplay loop muted width="100%"></video> | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/evening-drive-and-windmills.mp4" autoplay loop muted width="100%"></video> |
 
 </details>
 
 <br/>
-<em>(To save space on this README, only a few are previewed! See the full 37 in the `Backgrounds` directory!)</em>
+
+<div align="center">
+  <h3><a href="VIDEOS.md">✨ Click Here to View All 37 Cinematic Backgrounds ✨</a></h3>
+  <p><i>(To save space on this README, only a few are previewed above. Check out the complete gallery!)</i></p>
+</div>
 
 ---
 
-## ⚙️ Quick Start Installation
+<h2 align="center">⚙️ Quick Start Installation</h2>
 
 <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Wrench.png" width="30" align="center" /> **Installation is fully automated.** (Requires `sudo` access to install into `/usr/share/sddm/themes/`)
 
 ```bash
-git clone https://github.com/omindu/sddm-themes.git
+git clone https://github.com/OminduD/sddm-themes.git
 cd sddm-themes
 chmod +x install.sh
 sudo ./install.sh
@@ -97,7 +101,7 @@ Follow the gracefully designed TUI prompt options to select your theme, set your
 
 ---
 
-## 🔧 Advanced Tweaking
+<h2 align="center">🔧 Advanced Tweaking</h2>
 
 Modify your deployed theme easily by editing its `.conf` file deeply located in `/usr/share/sddm/themes/zenmatrix-collection/Themes/`.
 
@@ -110,15 +114,15 @@ Modify your deployed theme easily by editing its `.conf` file deeply located in 
 
 ---
 
-## 📈 Star Growth & Popularity
+<h2 align="center">📈 Star Growth & Popularity</h2>
 
 Thank you to everyone supporting the project! Your stars keep the updates flowing.
 
-<a href="https://star-history.com/#omindu/sddm-themes&Date">
+<a href="https://star-history.com/#OminduD/sddm-themes&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=omindu/sddm-themes&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=omindu/sddm-themes&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=omindu/sddm-themes&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=OminduD/sddm-themes&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=OminduD/sddm-themes&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=OminduD/sddm-themes&type=Date" />
   </picture>
 </a>
 
