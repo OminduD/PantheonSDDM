@@ -2,10 +2,16 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=00FFFF&height=200&section=header&text=Cinematic%20Showcase&fontSize=60&animation=twinkling&fontAlignY=40" width="100%" alt="Header" />
   <br/><br/>
   <h2><a href="README.md">⬅️ Back to Main README</a></h2>
-  <p>Here is the complete showcase of all 37 video backgrounds included in ZenMatrix.</p>
+  <p>Here is the complete showcase of all <b>37</b> cinematic backgrounds included in ZenMatrix.</p>
 </div>
 
-| ✨ Theme | 🎬 Preview | ✨ Theme | 🎬 Preview |
+---
+
+> **Tip:** If the GIFs take a while to load, please give it a moment! High-quality cinematic loops are worth the wait. 🚀
+
+<div align="center">
+
+| 🌌 Theme | 🎬 Preview | 🌌 Theme | 🎬 Preview |
 | :---: | :---: | :---: | :---: |
 | **2B Midnight Bloom** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/2b-midnight-bloom.gif" width="100%" /> | **Anime Boy And Dragon** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/anime-boy-and-dragon.gif" width="100%" /> |
 | **Anime Train At Sunset** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/anime-train-at-sunset.gif" width="100%" /> | **Autumn Cat** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/autumn-cat.gif" width="100%" /> |
@@ -27,8 +33,11 @@
 | **Yae Miko Among The Sakura** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/yae-miko-among-the-sakura.gif" width="100%" /> | **Yae Miko Pixel Art2** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/yae-miko-pixel-art2.gif" width="100%" /> |
 | **Zi Ling A Mortals Journey To Immortality** | <img src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/gifs/zi-ling-a-mortals-journey-to-immortality.gif" width="100%" /> | | |
 
-<br/>
+</div>
+
+---
 
 <div align="center">
   <h3><a href="README.md">⬅️ Back to Main README</a></h3>
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkling%20Heart.png" alt="Sparkling Heart" width="40" />
 </div>
