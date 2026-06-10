@@ -58,9 +58,9 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 
 | Theme | Preview | Theme | Preview |
 | :---: | :---: | :---: | :---: |
-| **2B Midnight Bloom** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/2b-midnight-bloom.mp4" controls autoplay loop muted width="100%"></video> | **Lucy Digital Shadows** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/lucy-digital-shadows.mp4" controls autoplay loop muted width="100%"></video> |
-| **Dawn Wanderer** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/dawn-wanderer.mp4" controls autoplay loop muted width="100%"></video> | **Motorcycle Girl Chaos** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/motorcycle-girl-chaos.mp4" controls autoplay loop muted width="100%"></video> |
-| **Fantasy Flute Sunset Scene** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/fantasy-flute-sunset-scene.mp4" controls autoplay loop muted width="100%"></video> | **Yae Miko Pixel Art2** | <video src="https://github.com/OminduD/sddm-themes/raw/main/Backgrounds/yae-miko-pixel-art2.mp4" controls autoplay loop muted width="100%"></video> |
+| **2B Midnight Bloom** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/2b-midnight-bloom.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | **Lucy Digital Shadows** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/lucy-digital-shadows.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
+| **Dawn Wanderer** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/dawn-wanderer.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | **Motorcycle Girl Chaos** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/motorcycle-girl-chaos.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
+| **Fantasy Flute Sunset Scene** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/fantasy-flute-sunset-scene.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | **Yae Miko Pixel Art2** | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/yae-miko-pixel-art2.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
 
 </div>
 
@@ -72,9 +72,9 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 </div>
 
 ---: | :---: | :---: |
-| <video src="./Backgrounds/2b-midnight-bloom.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/anime-boy-and-dragon.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/evelyn.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/2b-midnight-bloom.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/anime-boy-and-dragon.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/evelyn.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
 | **Fantasy Flute** | **Vi And Powder** | **Yae Miko Pixel** |
-| <video src="./Backgrounds/fantasy-flute-sunset-scene.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/vi-and-powder.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/yae-miko-pixel-art2.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/fantasy-flute-sunset-scene.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/vi-and-powder.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/yae-miko-pixel-art2.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
 
 </details>
 
@@ -83,7 +83,7 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 
 | Digital Shadows | Nebula Black Hole | Motorcycle Girl Chaos | Shadowblade Wanderer |
 | :---: | :---: | :---: | :---: |
-| <video src="./Backgrounds/lucy-digital-shadows.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/black-hole-in-nebula.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/motorcycle-girl-chaos.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/shadowblade-wanderer.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/lucy-digital-shadows.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/black-hole-in-nebula.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/motorcycle-girl-chaos.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/shadowblade-wanderer.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
 
 </details>
 
@@ -92,7 +92,7 @@ Transform your static lock screen into a gateway to another dimension. ZenMatrix
 
 | Before The Road | Cloud Castle | Dawn Wanderer | Evening Drive |
 | :---: | :---: | :---: | :---: |
-| <video src="./Backgrounds/before-the-road.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/castle-beyond-the-clouds.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/dawn-wanderer.mp4" autoplay loop muted width="100%"></video> | <video src="./Backgrounds/evening-drive-and-windmills.mp4" autoplay loop muted width="100%"></video> |
+| <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/before-the-road.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/castle-beyond-the-clouds.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/dawn-wanderer.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> | <video src="https://raw.githubusercontent.com/OminduD/sddm-themes/main/Backgrounds/evening-drive-and-windmills.mp4" width="100%" controls="controls" muted="muted" loop="loop"></video> |
 
 </details>
 
