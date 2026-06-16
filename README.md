@@ -32,7 +32,7 @@
 
 ---
 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="35" align="center" /> Why ZenMatrix?
+## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="35" align="center" /> Why Pantheon SDDM?
 
 Transform your static lock screen into a gateway to another dimension. ZenMatrix isn't just a theme; it's a completely modular, hardware-accelerated, and cinematic experience tailored for modern Linux rices.
 
