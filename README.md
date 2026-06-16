@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=00FF99&height=250&section=header&text=ZenMatrix%20Collection&fontSize=70&animation=twinkling&fontAlignY=35&desc=The%20Ultimate%20Cinematic%20Login%20Experience&descAlignY=55&descAlign=50" width="100%" alt="Header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=00FF99&height=250&section=header&text=Pantheon%20SDDM&fontSize=70&animation=twinkling&fontAlignY=35&desc=The%20Ultimate%20Cinematic%20Login%20Experience&descAlignY=55&descAlign=50" width="100%" alt="Header" />
   
   <br/>
   
@@ -34,7 +34,7 @@
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Sparkles.png" width="35" align="center" /> Why Pantheon SDDM?
 
-Transform your static lock screen into a gateway to another dimension. ZenMatrix isn't just a theme; it's a completely modular, hardware-accelerated, and cinematic experience tailored for modern Linux rices.
+Transform your static lock screen into a gateway to another dimension. Pantheon SDDM isn't just a theme; it's a completely modular, hardware-accelerated, and cinematic experience tailored for modern Linux rices.
 
 <br/>
 
@@ -102,7 +102,7 @@ Follow the gracefully designed TUI prompt options to select your theme, set your
 
 ## 🔧 Advanced Tweaking
 
-Modify your deployed theme easily by editing its `.conf` file deeply located in `/usr/share/sddm/themes/zenmatrix-collection/Themes/`.
+Modify your deployed theme easily by editing its `.conf` file deeply located in `/usr/share/sddm/themes/pantheon-sddm/Themes/`.
 
 **Tweakable settings overview:**
 | 🎛️ Parameter | 📝 Description |
