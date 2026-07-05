@@ -21,6 +21,8 @@ readonly LOG="/tmp/${THEME_NAME}_install_${DATE}.log"
 TOTAL_STEPS=7
 CURRENT_STEP=0
 declare -A STEP_STATUS=()
+INTRO_SHOWN=false
+PREV_PCT=0
 
 readonly -a THEME_VARIANTS=(
     "boy_and_dragon"
@@ -135,11 +137,168 @@ C_WHITE="\e[38;5;255m"
 C_BG_DARK="\e[48;5;234m"
 C_BG_RED="\e[48;5;52m"
 
+is_truecolor_supported() {
+    [[ "${COLORTERM:-}" == "truecolor" || "${COLORTERM:-}" == "24bit" ]] && return 0
+    [[ "${TERM:-}" != "linux" ]] && return 0
+    return 1
+}
+
+print_banner_gradient() {
+    local text="$1"
+    local lines
+    mapfile -t lines <<< "$text"
+    local num_lines=${#lines[@]}
+    
+    local sr=255 sg=0 sb=180
+    local er=0 eg=220 eb=255
+    
+    for i in "${!lines[@]}"; do
+        local line="${lines[$i]}"
+        if [[ -z "${line//[[:space:]]/}" ]]; then
+            echo -e "$line"
+            continue
+        fi
+        
+        if is_truecolor_supported; then
+            local r=$(( sr + (er - sr) * i / (num_lines - 1) ))
+            local g=$(( sg + (eg - sg) * i / (num_lines - 1) ))
+            local b=$(( sb + (eb - sb) * i / (num_lines - 1) ))
+            echo -e "\e[38;2;${r};${g};${b}m${line}\e[0m"
+        else
+            echo -e "${C_PINK}${line}${C_RESET}"
+        fi
+    done
+}
+
+animate_banner_reveal() {
+    local text="$1"
+    local lines
+    mapfile -t lines <<< "$text"
+    local num_lines=${#lines[@]}
+    
+    clear
+    local sr=255 sg=0 sb=180
+    local er=0 eg=220 eb=255
+    
+    for i in "${!lines[@]}"; do
+        local line="${lines[$i]}"
+        if [[ -n "${line//[[:space:]]/}" ]]; then
+            if is_truecolor_supported; then
+                local r=$(( sr + (er - sr) * i / (num_lines - 1) ))
+                local g=$(( sg + (eg - sg) * i / (num_lines - 1) ))
+                local b=$(( sb + (eb - sb) * i / (num_lines - 1) ))
+                echo -e "\e[38;2;${r};${g};${b}m${line}\e[0m"
+            else
+                echo -e "${C_PINK}${line}${C_RESET}"
+            fi
+        else
+            echo ""
+        fi
+        sleep 0.025
+    done
+}
+
+get_banner_art() {
+    cat << 'BANNER'
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⢀⣀⣤⣴⣶⣶⣾⣶⣷⣶⣶⡦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣿⣻⣿⣿⣿⣭⣯⣝⡯⢻⣦⠙⢿⡻⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣶⣿⣿⣿⣿⣿⡟⣿⣿⣿⣯⣽⡻⡷⣽⣷⣞⢿⣹⣿⣻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⢿⡿⣽⣿⢿⣿⣿⡽⣜⢽⢻⣿⡿⣟⣷⣄⡽⢿⣿⡽⣿⣷⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⣾⡇⣾⢹⣿⣿⢺⣽⣿⣿⣿⣿⡕⣮⢹⣿⢳⣾⢻⣭⣿⣿⣿⣿⣾⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⣼⣿⣹⡇⠹⣿⣿⠰⢿⣿⡏⠹⣯⠿⣦⣠⠿⣾⣿⢿⣽⣾⣻⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠳⡀⠀⠀⠀⠀⣰⡿⣷⣿⢧⢑⣿⣾⡇⣀⠸⣿⣆⢽⣷⢋⣿⣷⣷⣽⣻⣿⣻⣿⣿⣿⣿⢿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠱⡄⠀⠀⢀⣿⠃⣟⡏⣦⢻⡟⣧⣿⡬⡓⡜⣿⣮⣿⣞⡬⢿⣿⢿⣿⣿⣿⣿⡟⠙⣂⣎⠙⣻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⠀⢸⡏⠀⣿⣗⣣⣿⡷⠚⢯⣷⡕⢨⡜⢻⣯⢿⣟⠷⣿⣿⣿⣿⣿⣿⠿⢿⠙⣏⣩⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠀⣿⡬⣗⣿⣇⣀⠀⠙⢿⣳⠶⢥⣼⣯⣽⣿⣵⢿⣿⣷⣿⠏⠀⠬⢈⣇⡈⢹⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⢠⣿⡓⣿⣿⣿⣿⣷⣀⠀⠉⠳⠤⢻⣿⣿⣿⣿⣿⣿⣻⢽⣿⣤⣤⣴⣿⣿⣿⣿⡽⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣟⠀⣼⣟⡟⣯⣿⠏⠿⣿⢿⠀⠀⠀⠀⠀⠉⢿⢛⠻⠉⣻⢯⣿⣿⢞⣿⣿⣿⣿⣟⣿⣿⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠹⣴⡟⣾⣿⢿⣿⣇⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⣾⣿⣿⣚⣿⣿⣿⣿⣿⣿⣿⣷⠹⡝⣦⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣠⠎⠁⠀⣰⣿⣷⣿⣿⣿⣿⣿⡆⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⢾⣿⣽⣿⣿⣿⣭⣿⣿⣿⣿⣿⣿⣿⣿⡤⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⡴⠃⠀⠀⣴⣿⣟⣿⣿⣿⣿⣿⣿⣿⣄⡀⠀⠺⣿⣿⡶⠀⠀⣠⣾⡿⣿⣿⣿⠟⣻⣿⣿⣿⣿⣿⣿⣯⠁⣠⠇⠀⠀⢦⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡼⠁⠀⢀⣾⣿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⠁⢀⣠⠶⠋⠁⠀⣽⣿⠃⣰⣿⣿⣿⣿⣿⣿⣿⣿⣾⣥⣀⣀⣴⡟⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠰⠁⠀⢠⡞⢽⣿⣧⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⡇⢠⠠⡁⠦⢾⡏⣼⣿⣿⢿⢫⣽⣾⣿⣿⣿⣿⣿⣿⡛⠉⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡟⠀⠘⢿⣿⣿⡿⣿⣿⣿⣿⡿⡿⣿⠃⠈⣷⡟⠁⢸⡁⠀⠀⣤⢶⣿⠀⣿⠟⢁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢳⠦⣤⣾⢿⣿⣿⣿⣿⣿⠏⠀⠘⣿⠀⢠⠹⢿⡀⠈⠀⢀⣰⠞⠉⠉⢠⡍⠀⢹⣼⣿⣯⣿⣿⣿⣿⣿⣿⣻⣾⡟⢿⡆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣠⣴⣿⡟⣿⣯⣿⣿⣿⣿⠏⠂⠀⠂⢙⣇⠀⢁⠀⠙⢦⡀⣼⣇⣤⣿⢦⣤⡽⠆⠘⣯⠙⡟⢿⢿⣿⣿⣿⣿⣿⢿⣷⠈⢷⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣴⣿⣿⡿⢧⣹⣶⣿⣿⣿⣿⠏⠀⠀⣶⡴⠃⠹⣤⣠⣇⣤⣤⣿⣿⣥⣀⣳⣬⢛⣭⣿⢿⣧⢋⡜⠣⡍⠘⣿⣿⣿⣿⣿⣇⢠⡟⠀⠀⠀⠀⠀
+⠀⢀⣜⡿⠋⣿⡏⣿⣷⣿⣿⣿⣿⣿⠏⠀⠀⣠⠟⠀⠀⣴⣿⠋⠁⢀⣿⠙⡁⣀⠧⠤⡿⢻⢆⢻⣾⡷⠿⠞⠛⠉⠀⣿⣿⢿⣿⡽⣿⣯⡀⠀⠀⠀⠀⠀
+⢠⡏⢸⣇⠀⣿⡄⢠⣿⣿⣿⣿⣿⡿⠇⢤⡾⠁⠀⢀⣾⡿⠁⠀⢀⠞⢹⣴⡁⠈⠓⠒⢉⣿⣿⣾⣿⠘⠂⠀⠀⠀⢰⣿⡧⣿⣿⣿⡿⡇⠀⠀⠀⠀⠀
+⠘⢦⣸⣿⣤⡹⣏⢦⣿⣿⣿⣿⡟⠉⢬⡟⠀⠀⢀⣾⠟⠀⠀⠀⠋⠀⠘⡿⢽⣲⠶⠶⣛⡿⢟⢹⡾⠷⣄⠀⠀⠀⣿⣿⣿⣼⢿⣿⣋⢀⡇⠀⠀⠀⠀⠀
+⠀⠀⡙⢿⣿⣿⣿⣷⣿⣿⣿⠟⠀⢠⡟⠀⠀⢠⢏⡟⠀⠀⠀⠀⠀⠀⠀⢿⠰⣲⠮⠟⠉⡔⢌⣾⣇⠀⠙⣆⠀⠀⢸⣿⣿⣿⣿⣿⣿⣏⡀⠀⠀⠀⠀⠀
+⢠⡏⠀⠀⠈⠙⢻⣿⣿⣿⢏⡀⠀⢸⡇⠢⡀⡟⡾⠀⠀⠀⠀⠀⠀⠀⢀⣼⣧⠁⠀⢴⣊⠔⢊⣽⢻⡀⠀⠸⣇⣄⣰⣿⣻⣿⣿⣿⣿⣹⢻⣷⣦⢤⣀⠀
+⠸⣇⠀⠀⠀⢀⣿⢻⣿⠇⢟⡻⣧⣀⡇⢣⢻⣿⠇⠀⢠⠀⠀⢀⣀⣀⣸⢻⡄⡀⠀⠀⠛⠀⠀⡜⣇⣧⠀⠀⠛⢼⣿⣿⣿⣿⣿⣿⣿⣿⡧⠼⣿⣇⠘⠇
+⠀⢹⣿⣷⣺⣯⣿⣿⠋⠠⣎⣰⡡⣙⢷⣂⣿⠾⠀⠰⣾⠟⡛⠭⣉⠦⣹⢿⡄⠀⠀⠀⠀⠀⣼⡑⢦⣿⣲⡦⠄⣿⣿⣽⣿⣿⣿⣿⢿⣿⣿⡷⣹⣿⣇⠀
+⠀⠀⠙⠻⠷⠿⠿⠁⠀⠀⣀⣉⣙⠛⣻⡿⣇⡍⢣⢃⣿⡜⢨⠅⡃⠔⣿⣿⠠⠁⠀⠀⠀⢸⢣⠜⣶⢇⢻⢻⡔⣿⣿⣿⣿⣽⣿⣿⣿⣿⣿⣿⠼⣿⣿⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⠲⣿⣬⢙⡹⢛⢿⣅⠘⢯⣃⢯⡿⡜⡳⢮⡑⠎⣿⣿⠀⠀⠀⢀⣴⢿⣣⡿⠋⣢⠿⠈⢷⢻⣿⣿⣿⣷⢻⣿⣿⣿⣿⣿⡽⠋⠁⣵
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢧⣼⡍⡾⡻⣿⣔⡌⢢⣿⠰⡱⢆⠱⢊⣹⢽⣆⣀⣶⠿⠛⠋⠁⢀⣼⡧⡘⢆⡘⣿⣿⣿⣿⣿⢷⢾⣽⣿⣯⣁⣀⣀⣴⡷
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⢧⣭⣛⣾⢡⣿⢑⡘⣌⠳⣬⡘⣿⣿⠫⣅⢒⡐⢦⡐⡌⣻⡴⡙⣬⢱⢸⣿⣿⣿⣿⣏⡾⣿⣿⡛⠛⠛⠛⠉⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠻⠿⢦⣵⣨⣑⣩⣿⣽⢿⡳⡌⠦⡙⠴⡘⠴⣉⢿⣾⣶⣶⣿⣿⣿⣿⣿⣾⡗⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠙⠋⠛⠻⢽⣣⠝⡲⣍⠖⡍⢦⠋⣿⠿⡿⠿⢛⣱⣿⣿⣽⣿⣽⡇⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢵⣌⣮⣙⡴⠟⠹⢤⣤⣶⣿⣿⣟⣿⡿⠿⠛⠁⠀⠀⠀⠀⠀
+BANNER
+}
+
+show_intro_animation() {
+    clear
+    echo -e "\n\n"
+    
+    local title=" H Y P R L A N D S   S D D M   I N S T A L L E R "
+    local len=${#title}
+    
+    printf "  \e[38;5;141m┌"
+    for ((i=0; i<len+4; i++)); do printf "─"; done
+    printf "┐\e[0m\n"
+    
+    printf "  \e[38;5;141m│\e[0m  "
+    for ((i=0; i<len; i++)); do
+        local char="${title:$i:1}"
+        local r=$(( 255 - (255 * i / len) ))
+        local g=$(( 0 + (220 * i / len) ))
+        local b=$(( 180 + (75 * i / len) ))
+        printf "\e[38;2;%d;%d;%dm%s\e[0m" "$r" "$g" "$b" "$char"
+        sleep 0.01
+    done
+    printf "  \e[38;5;141m│\e[0m\n"
+    
+    printf "  \e[38;5;141m└"
+    for ((i=0; i<len+4; i++)); do printf "─"; done
+    printf "┘\e[0m\n\n"
+    
+    local -a loading_steps=(
+        "Initializing premium graphics engine"
+        "Loading cinematic layouts"
+        "Checking configuration paths"
+        "Preparing installation dashboard"
+    )
+    
+    for lstep in "${loading_steps[@]}"; do
+        local spin_chars=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
+        for ((k=0; k<12; k++)); do
+            local frame="${spin_chars[$((k % 10))]}"
+            local col=$(( 81 + (k * 10) ))
+            printf "\r  \e[38;5;%dm%s\e[0m  \e[38;5;253m%s...\e[0m" "$col" "$frame" "$lstep"
+            sleep 0.04
+        done
+        printf "\r  \e[38;5;118m✔\e[0m  \e[38;5;255m%s completed.\e[0m\n" "$lstep"
+        sleep 0.08
+    done
+    
+    sleep 0.3
+    
+    local art
+    art=$(get_banner_art)
+    animate_banner_reveal "$art"
+    sleep 0.4
+}
+
+
 # ══════════════════════════════════════════════════════════════════════
 # Logging helpers — ultra-premium gum-powered with rich plain fallback
 # ══════════════════════════════════════════════════════════════════════
 HAS_GUM=false
-command -v gum &>/dev/null && HAS_GUM=true
+if command -v gum &>/dev/null && [ -t 0 ] && [ -t 1 ] && [ -c /dev/tty ] && [ -r /dev/tty ] && [ -w /dev/tty ]; then
+    HAS_GUM=true
+fi
 
 info() {
     $HAS_GUM && gum style --foreground 212 "  ✨  $*" ||
@@ -173,64 +332,27 @@ error() {
 show_banner() {
     clear
     local banner
-    read -r -d '' banner << 'BANNER' || true
-
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⢀⣀⣤⣴⣶⣶⣾⣶⣷⣶⣶⡦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣿⣻⣿⣿⣿⣭⣯⣝⡯⢻⣦⠙⢿⡻⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣶⣿⣿⣿⣿⣿⡟⣿⣿⣿⣯⣽⡻⡷⣽⣷⣞⢿⣹⣿⣻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⢿⡿⣽⣿⢿⣿⣿⡽⣜⢽⢻⣿⡿⣟⣷⣄⡽⢿⣿⡽⣿⣷⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⣾⡇⣾⢹⣿⣿⢺⣽⣿⣿⣿⣿⡕⣮⢹⣿⢳⣾⢻⣭⣿⣿⣿⣿⣾⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⣼⣿⣹⡇⠹⣿⣿⠰⢿⣿⡏⠹⣯⠿⣦⣠⠿⣾⣿⢿⣽⣾⣻⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠳⡀⠀⠀⠀⠀⣰⡿⣷⣿⢧⢑⣿⣾⡇⣀⠸⣿⣆⢽⣷⢋⣿⣷⣷⣽⣻⣿⣻⣿⣿⣿⣿⢿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠱⡄⠀⠀⢀⣿⠃⣟⡏⣦⢻⡟⣧⣿⡬⡓⡜⣿⣮⣿⣞⡬⢿⣿⢿⣿⣿⣿⣿⡟⠙⣂⣎⠙⣻⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⠀⢸⡏⠀⣿⣗⣣⣿⡷⠚⢯⣷⡕⢨⡜⢻⣯⢿⣟⠷⣿⣿⣿⣿⣿⣿⠿⢿⠙⣏⣩⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠀⣿⡬⣗⣿⣇⣀⠀⠙⢿⣳⠶⢥⣼⣯⣽⣿⣵⢿⣿⣷⣿⠏⠀⠬⢈⣇⡈⢹⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⢠⣿⡓⣿⣿⣿⣿⣷⣀⠀⠉⠳⠤⢻⣿⣿⣿⣿⣿⣿⣻⢽⣿⣤⣤⣴⣿⣿⣿⣿⡽⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣟⠀⣼⣟⡟⣯⣿⠏⠿⣿⢿⠀⠀⠀⠀⠀⠉⢿⢛⠻⠉⣻⢯⣿⣿⢞⣿⣿⣿⣿⣟⣿⣿⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠹⣴⡟⣾⣿⢿⣿⣇⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠟⣾⣿⣿⣚⣿⣿⣿⣿⣿⣿⣿⣷⠹⡝⣦⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣠⠎⠁⠀⣰⣿⣷⣿⣿⣿⣿⣿⡆⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⢾⣿⣽⣿⣿⣿⣭⣿⣿⣿⣿⣿⣿⣿⣿⡤⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⡴⠃⠀⠀⣴⣿⣟⣿⣿⣿⣿⣿⣿⣿⣄⡀⠀⠺⣿⣿⡶⠀⠀⣠⣾⡿⣿⣿⣿⠟⣻⣿⣿⣿⣿⣿⣿⣯⠁⣠⠇⠀⠀⢦⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡼⠁⠀⢀⣾⣿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⣀⠁⢀⣠⠶⠋⠁⠀⣽⣿⠃⣰⣿⣿⣿⣿⣿⣿⣿⣿⣾⣥⣀⣀⣴⡟⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠰⠁⠀⢠⡞⢽⣿⣧⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⡇⢠⠠⡁⠦⢾⡏⣼⣿⣿⢿⢫⣽⣾⣿⣿⣿⣿⣿⣿⡛⠉⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⡟⠀⠘⢿⣿⣿⡿⣿⣿⣿⣿⡿⡿⣿⠃⠈⣷⡟⠁⢸⡁⠀⠀⣤⢶⣿⠀⣿⠟⢁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢳⠦⣤⣾⢿⣿⣿⣿⣿⣿⠏⠀⠘⣿⠀⢠⠹⢿⡀⠈⠀⢀⣰⠞⠉⠉⢠⡍⠀⢹⣼⣿⣯⣿⣿⣿⣿⣿⣿⣻⣾⡟⢿⡆⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣠⣴⣿⡟⣿⣯⣿⣿⣿⣿⠏⠂⠀⠂⢙⣇⠀⢁⠀⠙⢦⡀⣼⣇⣤⣿⢦⣤⡽⠆⠘⣯⠙⡟⢿⢿⣿⣿⣿⣿⣿⢿⣷⠈⢷⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣴⣿⣿⡿⢧⣹⣶⣿⣿⣿⣿⠏⠀⠀⣶⡴⠃⠹⣤⣠⣇⣤⣤⣿⣿⣥⣀⣳⣬⢛⣭⣿⢿⣧⢋⡜⠣⡍⠘⣿⣿⣿⣿⣿⣇⢠⡟⠀⠀⠀⠀⠀
-⠀⢀⣜⡿⠋⣿⡏⣿⣷⣿⣿⣿⣿⣿⠏⠀⠀⣠⠟⠀⠀⣴⣿⠋⠁⢀⣿⠙⡁⣀⠧⠤⡿⢻⢆⢻⣾⡷⠿⠞⠛⠉⠀⣿⣿⢿⣿⡽⣿⣯⡀⠀⠀⠀⠀⠀
-⢠⡏⢸⣇⠀⣿⡄⢠⣿⣿⣿⣿⣿⡿⠇⢤⡾⠁⠀⢀⣾⡿⠁⠀⢀⠞⢹⣴⡁⠈⠓⠒⢉⣿⣿⣾⣿⠘⠂⠀⠀⠀⢰⣿⡟⡧⣿⣿⣿⡿⡇⠀⠀⠀⠀⠀
-⠘⢦⣸⣿⣤⡹⣏⢦⣿⣿⣿⣿⡟⠉⢬⡟⠀⠀⢀⣾⠟⠀⠀⠀⠋⠀⠘⡿⢽⣲⠶⠶⣛⡿⢟⢹⡾⠷⣄⠀⠀⠀⣿⣿⣿⣼⢿⣿⣋⢀⡇⠀⠀⠀⠀⠀
-⠀⠀⡙⢿⣿⣿⣿⣷⣿⣿⣿⠟⠀⢠⡟⠀⠀⢠⢏⡟⠀⠀⠀⠀⠀⠀⠀⢿⠰⣲⠮⠟⠉⡔⢌⣾⣇⠀⠙⣆⠀⠀⢸⣿⣿⣿⣿⣿⣿⣏⡀⠀⠀⠀⠀⠀
-⢠⡏⠀⠀⠈⠙⢻⣿⣿⣿⢏⡀⠀⢸⡇⠢⡀⡟⡾⠀⠀⠀⠀⠀⠀⠀⢀⣼⣧⠁⠀⢴⣊⠔⢊⣽⢻⡀⠀⠸⣇⣄⣰⣿⣻⣿⣿⣿⣿⣹⢻⣷⣦⢤⣀⠀
-⠸⣇⠀⠀⠀⢀⣿⢻⣿⠇⢟⡻⣧⣀⡇⢣⢻⣿⠇⠀⢠⠀⠀⢀⣀⣀⣸⢻⡄⡀⠀⠀⠛⠀⠀⡜⣇⣧⠀⠀⠛⢼⣿⣿⣿⣿⣿⣿⣿⣿⡧⠼⣿⣇⠘⠇
-⠀⢹⣿⣷⣺⣯⣿⣿⠋⠠⣎⣰⡡⣙⢷⣂⣿⠾⠀⠰⣾⠟⡛⠭⣉⠦⣹⢿⡄⠀⠀⠀⠀⠀⣼⡑⢦⣿⣲⡦⠄⣿⣿⣽⣿⣿⣿⣿⢿⣿⣿⡷⣹⣿⣇⠀
-⠀⠀⠙⠻⠷⠿⠿⠁⠀⠀⣀⣉⣙⠛⣻⡿⣇⡍⢣⢃⣿⡜⢨⠅⡃⠔⣿⣿⠠⠁⠀⠀⠀⢸⢣⠜⣶⢇⢻⢻⡔⣿⣿⣿⣿⣽⣿⣿⣿⣿⣿⣿⠼⣿⣿⡇
-⠀⠀⠀⠀⠀⠀⠀⠀⠲⣿⣬⢙⡹⢛⢿⣅⠘⢯⣃⢯⡿⡜⡳⢮⡑⠎⣿⣿⠀⠀⠀⢀⣴⢿⣣⡿⠋⣢⠿⠈⢷⢻⣿⣿⣿⣷⢻⣿⣿⣿⣿⣿⡽⠋⠁⣵
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢧⣼⡍⡾⡻⣿⣔⡌⢢⣿⠰⡱⢆⠱⢊⣹⢽⣆⣀⣶⠿⠛⠋⠁⢀⣼⡧⡘⢆⡘⣿⣿⣿⣿⣿⢷⢾⣽⣿⣯⣁⣀⣀⣴⡷
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠳⢧⣭⣛⣾⢡⣿⢑⡘⣌⠳⣬⡘⣿⣿⠫⣅⢒⡐⢦⡐⡌⣻⡴⡙⣬⢱⢸⣿⣿⣿⣿⣏⡾⣿⣿⡛⠛⠛⠛⠉⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠓⠻⠿⢦⣵⣨⣑⣩⣿⣽⢿⡳⡌⠦⡙⠴⡘⠴⣉⢿⣾⣶⣶⣿⣿⣿⣿⣿⣾⡗⣿⣿⡇⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠙⠋⠛⠻⢽⣣⠝⡲⣍⠖⡍⢦⠋⣿⠿⡿⠿⢛⣱⣿⣿⣽⣿⣽⡇⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢵⣌⣮⣙⡴⠟⠹⢤⣤⣶⣿⣿⣟⣿⡿⠿⠛⠁⠀⠀⠀⠀⠀
-BANNER
+    banner=$(get_banner_art)
 
     local pm; pm=$(detect_pm)
     local sddm_ver="not installed"
     command -v sddm &>/dev/null && sddm_ver=$(sddm --version 2>/dev/null | head -1 || echo "unknown")
     local qt_ver="not found"
-    if command -v qmake6 &>/dev/null; then qt_ver=$(qmake6 --version 2>/dev/null | grep -oP 'Qt version \\K[\\d.]+' || echo "unknown")
-    elif command -v qmake &>/dev/null; then qt_ver=$(qmake --version 2>/dev/null | grep -oP 'Qt version \\K[\\d.]+' || echo "unknown"); fi
+    if command -v qmake6 &>/dev/null; then qt_ver=$(qmake6 --version 2>/dev/null | grep -oP 'Qt version \K[\d.]+' || echo "unknown")
+    elif command -v qmake &>/dev/null; then qt_ver=$(qmake --version 2>/dev/null | grep -oP 'Qt version \K[\d.]+' || echo "unknown"); fi
     local active_theme="none"
-    [[ -f "$METADATA" ]] && active_theme=$(sed -n 's|^ConfigFile=Themes/\\(.*\\)\\.conf|\\1|p' "$METADATA" 2>/dev/null || echo "none")
+    [[ -f "$METADATA" ]] && active_theme=$(sed -n 's|^ConfigFile=Themes/\(.*\)\.conf|\1|p' "$METADATA" 2>/dev/null || echo "none")
     local disk_free; disk_free=$(df -h /usr/share 2>/dev/null | awk 'NR==2 {print $4}' || echo "??")
     local distro="Unknown"
     [[ -f /etc/os-release ]] && distro=$(. /etc/os-release && echo "${PRETTY_NAME:-$NAME}")
 
     if $HAS_GUM; then
         local art_str
-        art_str=$(gum style --foreground 196 --align left "$banner")
+        art_str=$(print_banner_gradient "$banner")
         
         local title_str
         title_str=$(gum style \
-            --foreground 220 --border-foreground 196 \
+            --foreground 212 --border-foreground 141 \
             --border double --align center --width 60 \
             --margin "0 0" --padding "0 1" \
             "⚡  H Y P R L A N D S   A E S T H E T I C S  ⚡" "" \
@@ -241,7 +363,7 @@ BANNER
             
         local sys_str
         sys_str=$(gum style \
-            --foreground 208 --border-foreground 196 \
+            --foreground 87 --border-foreground 141 \
             --border double --align left --width 60 \
             --margin "1 0" --padding "0 1" \
             "  🔥  SYSTEM DASHBOARD  🔥" "" \
@@ -262,21 +384,21 @@ BANNER
         echo ""
     else
         echo ""
-        echo -e "${C_RED}${C_BOLD}${banner}${C_RESET}"
+        print_banner_gradient "$banner"
         echo ""
-        echo -e "  ${C_ORANGE}${C_BOLD}⚡  H Y P R L A N D S   A E S T H E T I C S  ⚡${C_RESET}"
+        echo -e "  ${C_PURPLE}${C_BOLD}⚡  H Y P R L A N D S   A E S T H E T I C S  ⚡${C_RESET}"
         echo -e "  ${C_DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C_RESET}"
         echo -e "  ${C_PINK}  37 Cinematic Looping Backgrounds  •  v${VERSION}${C_RESET}"
         echo -e "  ${C_GRAY}  Elevate your login. Built for r/unixporn.${C_RESET}"
         echo -e "  ${C_DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C_RESET}"
-        echo -e "  ${C_BG_DARK}${C_ORANGE}${C_BOLD}  🔥  SYSTEM DASHBOARD  🔥                             ${C_RESET}"
+        echo -e "  ${C_BG_DARK}${C_PURPLE}${C_BOLD}  🔥  SYSTEM DASHBOARD  🔥                             ${C_RESET}"
         echo -e "  ${C_BG_DARK}                                                  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🐧  Distro           ${C_DIM}│${C_YELLOW}  $distro  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  📦  Package Manager  ${C_DIM}│${C_YELLOW}  $pm  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🔹  SDDM Version     ${C_DIM}│${C_YELLOW}  $sddm_ver  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  💠  Qt Version       ${C_DIM}│${C_YELLOW}  $qt_ver  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🎨  Active Theme     ${C_DIM}│${C_YELLOW}  $active_theme  ${C_RESET}"
-        echo -e "  ${C_BG_DARK}  ${C_WHITE}  💾  Free Space (/usr) ${C_DIM}│${C_YELLOW}  $disk_free  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🐧  Distro           ${C_DIM}│${C_CYAN}  $distro  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  📦  Package Manager  ${C_DIM}│${C_CYAN}  $pm  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🔹  SDDM Version     ${C_DIM}│${C_CYAN}  $sddm_ver  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  💠  Qt Version       ${C_DIM}│${C_CYAN}  $qt_ver  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  🎨  Active Theme     ${C_DIM}│${C_CYAN}  $active_theme  ${C_RESET}"
+        echo -e "  ${C_BG_DARK}  ${C_WHITE}  💾  Free Space (/usr) ${C_DIM}│${C_CYAN}  $disk_free  ${C_RESET}"
         echo -e "  ${C_BG_DARK}                                                  ${C_RESET}"
         echo ""
     fi
@@ -286,20 +408,38 @@ BANNER
 # ══════════════════════════════════════════════════════════════════════
 progress_bar() {
     local step=$1 total=$2 label=$3
-    local pct=$(( step * 100 / total ))
-    local filled=$(( pct / 4 ))
-    local empty=$(( 25 - filled ))
-    local bar=""
-
-    for ((i=0; i<filled; i++)); do bar+="█"; done
-    for ((i=0; i<empty; i++)); do bar+="░"; done
-
-    if $HAS_GUM; then
-        gum style --foreground 212 --margin "0 3" \
-            "  [$bar] ${pct}%  ─  Step $step/$total  ─  $label"
-    else
-        echo -e "\n  ${C_PINK}  [${C_MAGENTA}${bar}${C_PINK}] ${pct}%  ${C_DIM}─${C_RESET}  ${C_LAVENDER}Step $step/$total${C_RESET}  ${C_DIM}─${C_RESET}  ${C_WHITE}$label${C_RESET}\n"
+    local target_pct=$(( step * 100 / total ))
+    local start_pct=${PREV_PCT:-0}
+    
+    if [ "$start_pct" -gt "$target_pct" ] || [ "$step" -eq 1 ]; then
+        start_pct=0
     fi
+    
+    for ((p=start_pct; p<=target_pct; p++)); do
+        local filled=$(( p / 4 ))
+        local empty=$(( 25 - filled ))
+        
+        local colored_bar=""
+        for ((i=0; i<25; i++)); do
+            if [ $i -lt $filled ]; then
+                local r=$(( 255 - (255 * i / 24) ))
+                local g=$(( 0 + (220 * i / 24) ))
+                local b=$(( 180 + (75 * i / 24) ))
+                colored_bar+="\e[38;2;${r};${g};${b}m█\e[0m"
+            else
+                colored_bar+="${C_DIM}░${C_RESET}"
+            fi
+        done
+        
+        if $HAS_GUM; then
+            printf "\r   %b  \e[38;5;212m%3d%%\e[0m  \e[38;5;141m─\e[0m  \e[38;5;141mStep %d/%d\e[0m  \e[38;5;141m─\e[0m  \e[38;5;255m%s\e[0m" "$colored_bar" "$p" "$step" "$total" "$label"
+        else
+            printf "\r  %b  \e[38;5;212m%3d%%\e[0m  ${C_DIM}─${C_RESET}  \e[38;5;141mStep %d/%d\e[0m  ${C_DIM}─${C_RESET}  ${C_WHITE}%s${C_RESET}" "$colored_bar" "$p" "$step" "$total" "$label"
+        fi
+        sleep 0.015
+    done
+    echo ""
+    PREV_PCT=$target_pct
 }
 
 step_start() {
@@ -371,26 +511,72 @@ confirm() {
 }
 
 choose() {
-    $HAS_GUM && gum choose \
-        --cursor=" ❯ " \
-        --cursor.foreground 196 \
-        --item.foreground 252 \
-        --selected.foreground 208 \
-        --header.foreground 220 \
-        "$@" ||
-    { select opt in "$@"; do [[ -n "$opt" ]] && { echo "$opt"; break; }; done; }
+    if $HAS_GUM; then
+        gum choose \
+            --cursor=" ❯ " \
+            --cursor.foreground 212 \
+            --item.foreground 252 \
+            --selected.foreground 87 \
+            --header.foreground 220 \
+            "$@"
+    else
+        local opt=""
+        select opt in "$@"; do
+            if [[ -n "$opt" ]]; then
+                echo "$opt"
+                break
+            fi
+        done || true
+    fi
 }
 
 spin() {
     local ttl="$1"; shift
-    local spinners=("points" "line" "minidot" "jump" "pulse" "globe" "moon" "monkey" "meter" "hamburger")
-    local rand_spinner="${spinners[$((RANDOM % ${#spinners[@]}))]}"
-    $HAS_GUM && gum spin \
-        --spinner "$rand_spinner" \
-        --spinner.foreground 196 \
-        --title.foreground 208 \
-        --title "  $ttl" -- "$@" ||
-    { echo -e "  ${C_ORANGE}$ttl${C_RESET}"; "$@"; }
+    if $HAS_GUM; then
+        local spinners=("points" "line" "minidot" "jump" "pulse" "globe" "moon" "meter")
+        local rand_spinner="${spinners[$((RANDOM % ${#spinners[@]}))]}"
+        gum spin \
+            --spinner "$rand_spinner" \
+            --spinner.foreground 212 \
+            --title.foreground 87 \
+            --title "  $ttl" -- "$@"
+    else
+        tput civis 2>/dev/null || true
+        
+        set +e
+        "$@" >/dev/null 2>/tmp/sddm_spin_err.log &
+        local pid=$!
+        set -e
+        
+        local spin_chars=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
+        local i=0
+        while kill -0 "$pid" 2>/dev/null; do
+            local frame="${spin_chars[$i]}"
+            local color=""
+            case $(( i % 4 )) in
+                0) color="\e[38;5;212m" ;; # Pink
+                1) color="\e[38;5;141m" ;; # Purple
+                2) color="\e[38;5;87m"  ;; # Cyan
+                3) color="\e[38;5;183m" ;; # Lavender
+            esac
+            printf "\r  %b%s\e[0m  \e[38;5;183m%s...${C_RESET}" "$color" "$frame" "$ttl"
+            i=$(( (i + 1) % 10 ))
+            sleep 0.08
+        done
+        
+        wait "$pid"
+        local exit_code=$?
+        
+        tput cnorm 2>/dev/null || true
+        printf "\r\e[K"
+        
+        if [ $exit_code -ne 0 ]; then
+            local err_msg=""
+            [[ -f /tmp/sddm_spin_err.log ]] && err_msg=$(cat /tmp/sddm_spin_err.log | tr '\n' ' ')
+            error "$ttl failed (exit code $exit_code): $err_msg"
+        fi
+        return $exit_code
+    fi
 }
 
 section_header() {
@@ -842,6 +1028,7 @@ show_report() {
 # ══════════════════════════════════════════════════════════════════════
 complete_install() {
     CURRENT_STEP=0
+    PREV_PCT=0
 
     step_start "Installing dependencies"
     if install_deps; then step_done "deps"; else step_fail "deps"; fi
@@ -882,32 +1069,27 @@ show_farewell() {
     IFS='|' read -r kanji romaji english <<< "$entry"
 
     echo ""
-    if $HAS_GUM; then
-        gum style \
-            --foreground 212 --border-foreground 141 \
-            --border rounded --align center --width 50 \
-            --margin "0 3" --padding "1 2" \
-            "🌸  さようなら  🌸" \
-            "" \
-            "  $kanji" \
-            "  $romaji" \
-            "  « $english »" \
-            "" \
-            "Thank you for choosing Hyprlands."
-    else
-        echo -e "  ${C_DIM}  ╭────────────────────────────────────────╮${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}                                        ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}      ${C_PINK}${C_BOLD}🌸  さようなら  🌸${C_RESET}              ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}                                        ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}        ${C_WHITE}${C_BOLD}$kanji${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}        ${C_LAVENDER}$romaji${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}        ${C_DIM}« $english »${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}                                        ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}  ${C_GRAY}Thank you for choosing Hyprlands.${C_RESET}    ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  │${C_RESET}                                        ${C_DIM}│${C_RESET}"
-        echo -e "  ${C_DIM}  ╰────────────────────────────────────────╯${C_RESET}"
-    fi
+    local title="🌸  さようなら (Sayōnara)  🌸"
+    printf "  "
+    for ((i=0; i<${#title}; i++)); do
+        local r=$(( 255 - (100 * i / ${#title}) ))
+        local g=$(( 50 + (150 * i / ${#title}) ))
+        local b=220
+        printf "\e[38;2;%d;%d;%dm%s\e[0m" "$r" "$g" "$b" "${title:$i:1}"
+        sleep 0.015
+    done
+    echo -e "\n"
+
+    local bar="\e[38;5;141m▌\e[0m"
+    echo -e "  ${bar}  \e[38;5;212mQuote of the Departure:\e[0m"
+    echo -e "  ${bar}"
+    echo -e "  ${bar}    \e[38;5;255m${C_BOLD}${kanji}\e[0m"
+    echo -e "  ${bar}    \e[38;5;87m${romaji}\e[0m"
+    echo -e "  ${bar}    \e[38;5;245m« ${english} »\e[0m"
+    echo -e "  ${bar}"
+    echo -e "  ${bar}  \e[38;5;183mThank you for choosing Hyprlands. Rise above the ordinary! 🚀\e[0m"
     echo ""
+    sleep 0.8
 }
 
 # ══════════════════════════════════════════════════════════════════════
@@ -931,6 +1113,11 @@ main() {
 
     check_gum
 
+    if [ "$INTRO_SHOWN" = false ]; then
+        show_intro_animation
+        INTRO_SHOWN=true
+    fi
+
     while true; do
         show_banner
 
@@ -952,6 +1139,8 @@ main() {
             "🗑️   Uninstall Theme" \
             "┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈" \
             "❌  Exit Installer")
+
+        [[ -z "$choice" ]] && { show_farewell; exit 0; }
 
         case "$choice" in
             *"Complete Installation"*)   complete_install; exit 0 ;;
