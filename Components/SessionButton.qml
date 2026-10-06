@@ -25,6 +25,16 @@ Item {
         model: sessionModel
         currentIndex: model.lastIndex
         textRole: "name"
+        valueRole: "name"
+
+        Component.onCompleted: {
+            var preferred = config.ForceDefaultSession || ""
+            if (preferred !== "") {
+                var prefIndex = selectSession.indexOfValue(preferred)
+                if (prefIndex >= 0)
+                    selectSession.currentIndex = prefIndex
+            }
+        }
 
         Keys.onPressed: function(event) {
             if ((event.key == Qt.Key_Left || event.key == Qt.Key_Right) && !popup.opened)
